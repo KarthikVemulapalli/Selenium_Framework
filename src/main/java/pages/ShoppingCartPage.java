@@ -18,7 +18,6 @@ public class ShoppingCartPage extends HomePage {
 	
 	public void clickProceedToCheckOut() {
 		waitForWebElement(xpath_labelOrderTotal, 30);
-		capturePageScreenshot("Shopping Cart Page", true);
 		click(css_buttonProceedToCheckout);
 	}
 	

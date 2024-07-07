@@ -19,6 +19,7 @@ public class HomePage extends Interactions {
 	
 	public void clickShopByBrand() {
 		waitForWebElement(byxpath_linkShopByBrand, 10);
+		logReportInfo("JavaScript Executor Element Click Performed");
 		clickUsingJavaScriptExecutor(xpath_linkShopByBrand);
 		coolingTime(5);
 	}

@@ -20,7 +20,7 @@ public class ShopByBrandPage extends HomePage {
 	public void clickAcePump() {
 		waitForWebElement(byxpath_linkAcePump, 20);
 		click(xpath_linkAcePump);
-		softValidateWithPageScreenshot(PageConstants.ACE_PUMP_PAGE_TITLE, getPageTitle(), "Ace Pump Page Title Validation");
+		softValidate(PageConstants.ACE_PUMP_PAGE_TITLE, getPageTitle(), "Ace Pump Page Title Validation");
 	}
 	
 }

@@ -1,7 +1,6 @@
-package steps;
+package cucumber.steps;
 
 import java.io.IOException;
-
 import io.cucumber.java.en.*;
 import pages.HomePage;
 
@@ -12,7 +11,6 @@ public class HomeSteps {
 	@Given("user launches application url")
 	public void userLaunchesApplicationURL () throws IOException {
 		Hooks.launchURL(Hooks.getConfigProperty("url"));
-		homePage.capturePageScreenshot("Home Page", true);
 	}
 	
 	@When("user clicks on {string} link on home page")

@@ -101,7 +101,6 @@ public class CheckOutPage extends HomePage {
 		enterText(css_textboxCVV, cvv);
 		
 		waitForWebElement(bycss_buttonPlaceOrder, 30);
-		capturePageScreenshot("CheckOut Page", true);
 	}
 	
 }

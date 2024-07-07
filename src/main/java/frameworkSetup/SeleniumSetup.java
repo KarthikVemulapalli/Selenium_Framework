@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
-public class SeleniumSetUp {
+public class SeleniumSetup {
 	
 	static WebDriver driver;
 	Properties property;

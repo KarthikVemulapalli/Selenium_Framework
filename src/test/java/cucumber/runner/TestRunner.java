@@ -1,14 +1,14 @@
-package runner;
+package cucumber.runner;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 		features = {"src/test/resources/features"},
-		glue = {"steps"},
+		glue = {"cucumber/steps"},
 		tags = "@ShopByBrand",
 		plugin = {
-				"html:reports/automation-cucumber-report.html",
+				/* "html:reports/automation-cucumber-report.html", */
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 				}
 		)
