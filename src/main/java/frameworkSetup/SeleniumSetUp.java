@@ -18,11 +18,11 @@ public class SeleniumSetUp {
 		
 		switch (browserName) {
 			case "chrome":
-//				WebDriverManager.chromedriver().setup();
+				/* WebDriverManager.chromedriver().setup(); */
 				driver = new ChromeDriver();
 				break;
 			case "edge":
-//				WebDriverManager.edgedriver().setup();
+				/* WebDriverManager.edgedriver().setup(); */
 				driver = new EdgeDriver();
 				break;
 		}

@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Selenium_BDD_Framework</groupId>
-  <artifactId>Selenium_BDD_Framework</artifactId>
+  <groupId>Selenium_Framework</groupId>
+  <artifactId>Selenium_Framework</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
   <dependencies>
@@ -64,8 +64,8 @@
 				<version>3.10.1</version>
 				<!-- References to interface static methods are allowed only at source level 1.8 or above -->
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>14</source>
+					<target>14</target>
 				</configuration>
 			</plugin>
 		</plugins>

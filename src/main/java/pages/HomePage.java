@@ -1,21 +1,26 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.support.FindBy;
 import webcore.Interactions;
 
 public class HomePage extends Interactions {
+	
+	public HomePage(WebDriver driver) {
+		super(driver);
+	}
 
-	By xpath_linkShopByBrand = By.xpath("//span[contains(text(), 'Shop By Brand')]");
+	@FindBy (xpath = "//span[contains(text(), 'Shop By Brand')]")
+	private WebElement xpath_linkShopByBrand;
+	
+	By byxpath_linkShopByBrand = By.xpath("//span[contains(text(), 'Shop By Brand')]");
 	
 	public void clickShopByBrand() {
-		WebElement element = driver.findElement(xpath_linkShopByBrand);
-		
-		JavascriptExecutor executor = (JavascriptExecutor)driver;
-		executor.executeScript("arguments[0].click();", element);
-		//click(xpath_linkShopByBrand);
+		waitForWebElement(byxpath_linkShopByBrand, 10);
+		clickUsingJavaScriptExecutor(xpath_linkShopByBrand);
+		coolingTime(5);
 	}
 	
 }

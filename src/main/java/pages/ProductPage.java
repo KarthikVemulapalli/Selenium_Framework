@@ -1,16 +1,25 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends HomePage {
 	
-	By css_textboxOrderQuantity = By.cssSelector("input#qty");
-	By xpath_buttonAddToCart = By.xpath("//button[@title='Add to Cart']");
+	public ProductPage(WebDriver driver) {
+		super(driver);
+	}
+	
+	@FindBy (css = "input#qty")
+	private WebElement css_textboxOrderQuantity;
+	
+	@FindBy (xpath = "//button[@title='Add to Cart']")
+	private WebElement xpath_buttonAddToCart;
 
 	public void clickProduct(String productName) {
-		click(By.xpath("//a[contains(text(),'"+productName+"')]"));
+		WebElement element = getDriver().findElement(By.xpath("//a[contains(text(),'"+productName+"')]"));
+		click(element);
 	}
 	
 	public void enterOrderQuantity(String orderQty) {
@@ -19,13 +28,8 @@ public class ProductPage extends HomePage {
 	}
 	
 	public void clickAddToCart() {
-		
-		WebElement element = driver.findElement(xpath_buttonAddToCart);
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-		//click(xpath_buttonAddToCart);
-	
-		JavascriptExecutor executor = (JavascriptExecutor)driver;
-		executor.executeScript("arguments[0].click();", element);
+		scrollToViewElementUsingJavaScriptExecutor(xpath_buttonAddToCart);
+		clickUsingJavaScriptExecutor(xpath_buttonAddToCart);
 	}
 	
 }

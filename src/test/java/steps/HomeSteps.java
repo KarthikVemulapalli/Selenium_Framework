@@ -1,0 +1,27 @@
+package steps;
+
+import java.io.IOException;
+
+import io.cucumber.java.en.*;
+import pages.HomePage;
+
+public class HomeSteps {
+	
+	HomePage homePage = new HomePage(Hooks.getDriver());
+	
+	@Given("user launches application url")
+	public void userLaunchesApplicationURL () throws IOException {
+		Hooks.launchURL(Hooks.getConfigProperty("url"));
+		homePage.capturePageScreenshot("Home Page", true);
+	}
+	
+	@When("user clicks on {string} link on home page")
+	public void userClicksOnShopByBrandLink(String linkname) {
+		switch(linkname) {
+			case "ShopByBrand":
+				homePage.clickShopByBrand();
+				break;
+		}
+	}
+	
+}

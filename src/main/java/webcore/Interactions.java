@@ -1,8 +1,12 @@
 package webcore;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,40 +14,45 @@ import org.testng.Assert;
 import frameworkSetup.ReportValidationsSetup;
 
 public class Interactions extends ReportValidationsSetup {
+	
+	private WebDriver driver;
+	
+	protected Interactions(WebDriver driver){
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
 
-	protected void click(By elementLocator) {
+	protected void click(WebElement element) {
 		try {
-			waitForWebElement(elementLocator, 30);
-			driver.findElement(elementLocator).click();
+			element.click();
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
 	}
 	
-	protected void enterText(By elementLocator, String textValue) {
+	protected void clickUsingJavaScriptExecutor(WebElement element) {
+		JavascriptExecutor jsexecutor = (JavascriptExecutor)driver;
+		jsexecutor.executeScript("arguments[0].click();", element);
+	}
+	
+	protected void scrollToViewElementUsingJavaScriptExecutor(WebElement element) {
+		JavascriptExecutor jsexecutor = (JavascriptExecutor)driver;
+		jsexecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	
+	protected void enterText(WebElement element, String textValue) {
 		try {
-			waitForWebElement(elementLocator, 30);
-			driver.findElement(elementLocator).sendKeys(textValue);
+			element.sendKeys(textValue);
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
 	}
 	
-	protected void selectDropdownByValue(By elementLocator, String textValue) {
+	protected void selectDropdownByValue(WebElement element, String textValue) {
 		try {
-			waitForWebElement(elementLocator, 30);
-			WebElement dropdownElement = driver.findElement(elementLocator);
-			Select selectobj = new Select(dropdownElement);
+			Select selectobj = new Select(element);
 			selectobj.selectByValue(textValue);
-		} catch(Throwable exception) {
-			Assert.fail(exception.getMessage());
-		}
-	}
-	
-	protected void waitForWebElement(By elementLocator, int waitTime) {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
-			wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
@@ -57,6 +66,31 @@ public class Interactions extends ReportValidationsSetup {
 			Assert.fail(exception.getMessage());
 		}
 		return title;
+	}
+	
+	/* 
+	 * Below Method Deprecated
+	 * 
+	protected void addImplicitWait(int waitTime) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	 */
+	
+	protected void addImplicitWait(int waitTime) {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
+	}
+	
+	protected void waitForWebElement(By element, int waitTime) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+	}
+	
+	protected void coolingTime(int hardWaitTime){
+		try {
+			Thread.sleep(hardWaitTime);
+		} catch (InterruptedException exception) {
+			Assert.fail(exception.getMessage());
+		}
 	}
 	
 }

@@ -1,27 +1,67 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class CheckOutPage extends HomePage {
+	
+	public CheckOutPage(WebDriver driver) {
+		super(driver);
+	}
+	
+	@FindBy (css = "input[data-bind*='hasFocus: emailFocused']")
+	private WebElement css_textboxEmailAddress;
+	
+	@FindBy (xpath = "(//input[@name='firstname'])[1]")
+	private WebElement xpath_textboxFirstName;
+	
+	@FindBy (xpath = "(//input[@name='lastname'])[1]")
+	private WebElement xpath_textboxLastName;
+	
+	@FindBy (xpath = "(//input[@name='street[0]'])[1]")
+	private WebElement xpath_textboxStreetAddress;
+	
+	@FindBy (xpath = "(//select[@name='country_id'])[1]")
+	private WebElement xpath_dropdownCountry;
 
-	By css_textboxEmailAddress = By.cssSelector("input[data-bind*='hasFocus: emailFocused']");
-	By xpath_textboxFirstName = By.xpath("(//input[@name='firstname'])[1]");
-	By xpath_textboxLastName = By.xpath("(//input[@name='lastname'])[1]");
-	By xpath_textboxStreetAddress = By.xpath("(//input[@name='street[0]'])[1]");
-	By xpath_dropdownCountry = By.xpath("(//select[@name='country_id'])[1]");
-	By xpath_titleShippingAddress = By.xpath("//*[contains(text(),'Shipping Address')]");
-	By xpath_dropdownState = By.xpath("(//select[@name='region_id'])[1]");
-	By xpath_textboxCity = By.xpath("(//input[@name='city'])[1]");
-	By xpath_textboxPostalCode = By.xpath("(//input[@name='postcode'])[1]");
-	By xpath_textboxPhoneNumber = By.xpath("(//input[@name='telephone'])[2]");
-	By css_textboxCreditCard = By.cssSelector("input[title='Credit Card Number']");
-	By css_dropdownMonth = By.cssSelector("select#authnetcim-cc-exp-month");
-	By css_dropdownYear = By.cssSelector("select#authnetcim-cc-exp-year");
-	By css_textboxCVV = By.cssSelector("input#authnetcim-cc-cid");
-	By css_buttonPlaceOrder = By.cssSelector("button[title='Place Order']");
+	@FindBy (xpath = "//*[contains(text(),'Shipping Address')]")
+	private WebElement xpath_titleShippingAddress;
+	
+	By byxpath_titleShippingAddress = By.xpath("//*[contains(text(),'Shipping Address')]");
+	
+	@FindBy (xpath = "(//select[@name='region_id'])[1]")
+	private WebElement xpath_dropdownState;
+	
+	@FindBy (xpath = "(//input[@name='city'])[1]")
+	private WebElement xpath_textboxCity;
+	
+	@FindBy (xpath = "(//input[@name='postcode'])[1]")
+	private WebElement xpath_textboxPostalCode;
+	
+	@FindBy (xpath = "(//input[@name='telephone'])[2]")
+	private WebElement xpath_textboxPhoneNumber;
+	
+	@FindBy (css = "input[title='Credit Card Number']")
+	private WebElement css_textboxCreditCard;
+	
+	@FindBy (css = "select#authnetcim-cc-exp-month")
+	private WebElement css_dropdownMonth;
+	
+	@FindBy (css = "select#authnetcim-cc-exp-year")
+	private WebElement css_dropdownYear;
+	
+	@FindBy (css = "input#authnetcim-cc-cid")
+	private WebElement css_textboxCVV;
+	
+	@FindBy (css = "button[title='Place Order']")
+	private WebElement css_buttonPlaceOrder;
+	
+	By bycss_buttonPlaceOrder = By.cssSelector("button[title='Place Order']");
 	
 	public void enterEmail(String email) {
-		waitForWebElement(xpath_titleShippingAddress, 30);
+		waitForWebElement(byxpath_titleShippingAddress, 30);
 		enterText(css_textboxEmailAddress, email);
 	}
 	
@@ -60,7 +100,7 @@ public class CheckOutPage extends HomePage {
 		selectDropdownByValue(css_dropdownYear, expYear);
 		enterText(css_textboxCVV, cvv);
 		
-		waitForWebElement(css_buttonPlaceOrder, 30);
+		waitForWebElement(bycss_buttonPlaceOrder, 30);
 		capturePageScreenshot("CheckOut Page", true);
 	}
 	

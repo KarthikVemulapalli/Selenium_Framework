@@ -14,7 +14,11 @@ import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 public class ReportValidationsSetup {
 	
-	protected WebDriver driver = SeleniumSetUp.getDriver();
+	private WebDriver driver;
+	
+	protected ReportValidationsSetup(WebDriver driver){
+		this.driver = driver;
+	}
 	
 	public void softValidateWithPageScreenshot(String expectedResult, String actualResult, String reportInformation) {
 		if(expectedResult.equals(actualResult)) {
@@ -62,6 +66,10 @@ public class ReportValidationsSetup {
 			Assert.fail(exception.getMessage());
 		}
 		return screenshotPath+name+".png";
+	}
+	
+	protected WebDriver getDriver() {
+		return driver;
 	}
 	
 }
