@@ -2,7 +2,7 @@ package cucumber.steps;
 
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
-import frameworkSetup.Cucumber_ReportSetup;
+import frameworkSetup.ReportSetup;
 import frameworkSetup.SeleniumSetup;
 import io.cucumber.java.*;
 import pages.HomePage;
@@ -12,13 +12,13 @@ public class Hooks {
 	private static Properties property;
 	private static WebDriver driver;
 	private static SeleniumSetup seleniumSetUp;
-	private static Cucumber_ReportSetup reportSetup;
+	private static ReportSetup reportSetup;
 	private HomePage homepage;
 	
 	
 	@BeforeAll
 	public static void initialReportSetUp() {
-		reportSetup = new Cucumber_ReportSetup();
+		reportSetup = new ReportSetup();
 		reportSetup.initialReportStep();
 	}
 	

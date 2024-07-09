@@ -1,9 +1,11 @@
-package webcore;
+package webcore.cucumber;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 
-public class Cucumber_ExtentReportLogger {
+public class ExtentReportLogger {
 	
 	public void softValidate(String expectedResult, String actualResult, String reportInformation) {
 		if(expectedResult.equals(actualResult)) {
@@ -15,6 +17,10 @@ public class Cucumber_ExtentReportLogger {
 	
 	public void logReportInfo(String reportInformation) {
 		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation);
+	}
+	
+	public void logReportInfoWithColour(String reportInformation) {
+		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, MarkupHelper.createLabel(reportInformation, ExtentColor.WHITE));
 	}
 	
 }

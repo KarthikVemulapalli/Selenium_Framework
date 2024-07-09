@@ -1,15 +1,8 @@
-package webcore;
+package webcore.cucumber;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -17,14 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import com.assertthat.selenium_shutterbug.core.Capture;
-import com.assertthat.selenium_shutterbug.core.Shutterbug;
 
-public class Interactions extends Cucumber_ExtentReportLogger {
+public class WebInteractions extends ExtentReportLogger {
 	
 	private WebDriver driver;
 	
-	protected Interactions(WebDriver driver){
+	protected WebInteractions(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -101,35 +92,6 @@ public class Interactions extends Cucumber_ExtentReportLogger {
 		} catch (InterruptedException exception) {
 			Assert.fail(exception.getMessage());
 		}
-	}
-	
-	
-	public byte[] takeScreenshot() {
-		String screenshotPath = System.getProperty("user.dir")+"\\reports\\Screenshots\\"+"PageImage_"+System.currentTimeMillis()+".png";
-		byte[] screenshotbyte = null;
-		try {
-			File scrshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrshot, new File(screenshotPath));
-			screenshotbyte = Files.readAllBytes(Paths.get(screenshotPath));
-		} catch (Exception exception) {
-			System.out.print("Failed: Capture Display Page Screenshot");
-			Assert.fail(exception.getMessage());
-		}
-		return screenshotbyte;
-	}
-	
-	public byte[] takeFullScreenshot() {
-		String name = "PageImage_"+System.currentTimeMillis();
-		String screenshotPath = System.getProperty("user.dir")+"\\reports\\Screenshots\\";
-		byte[] screenshotbyte = null;
-		try {
-			Shutterbug.shootPage(driver, Capture.FULL, true).withName(name).save(screenshotPath);
-			screenshotbyte = Files.readAllBytes(Paths.get(screenshotPath+name+".png"));
-		} catch (Exception exception) {
-			System.out.print("Failed: Capture Full Page Screenshot");
-			Assert.fail(exception.getMessage());
-		}
-		return screenshotbyte;
 	}
 	
 }
