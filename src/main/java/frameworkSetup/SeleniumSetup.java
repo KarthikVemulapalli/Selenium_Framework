@@ -1,47 +1,42 @@
 package frameworkSetup;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SeleniumSetup {
 	
-	static WebDriver driver;
-	Properties property;
+	private WebDriver driver;
+	private Properties property;
+	private FileInputStream configFileInputStream;
+	
+	public SeleniumSetup(){
+		try {
+			configFileInputStream = new FileInputStream("./src/test/resources/config/config.properties");
+			property = new Properties();
+			property.load(configFileInputStream);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	public WebDriver initializeBrowser(Properties prop) {
-		String browserName = prop.getProperty("browser").trim();
+	public void initializeBrowser() {
+		String browserName = property.getProperty("browser").trim();
 		
-		switch (browserName) {
-			case "chrome":
-				/* WebDriverManager.chromedriver().setup(); */
-				driver = new ChromeDriver();
-				break;
-			case "edge":
-				/* WebDriverManager.edgedriver().setup(); */
-				driver = new EdgeDriver();
-				break;
+		if(browserName.equalsIgnoreCase("chrome")) {
+			driver = new ChromeDriver();
+		} 
+		else if(browserName.equalsIgnoreCase("edge")) {
+			driver = new EdgeDriver();
+		}
+		else if(browserName.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
 		}
 		
 		driver.manage().window().maximize();
-		return driver;
-	}
-	
-	public Properties initializePropertyFile() {
-		try {
-			FileInputStream fileInputStream = new FileInputStream("./src/test/resources/config/config.properties");
-			property = new Properties();
-			property.load(fileInputStream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return property;
 	}
 	
 	public void quitBrowser() {
@@ -49,8 +44,13 @@ public class SeleniumSetup {
 		driver.quit();
 	}
 	
-	public static WebDriver getDriver() {
+	
+	public WebDriver getDriver() {
 		return driver;
+	}
+	
+	public Properties getConfigProperty() {
+		return property;
 	}
 	
 }

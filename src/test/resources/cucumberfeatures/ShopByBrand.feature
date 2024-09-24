@@ -1,8 +1,8 @@
-@ShopByBrand
 Feature: Shop By Brand Test Cases
 
-  Scenario: Order Product from Ace Pump Page
-  	Given user launches application url
+@AcePump_OrderProduct
+Scenario: Order Product from Ace Pump Page
+	Given user launches application url
   	When user clicks on "ShopByBrand" link on home page
   	Then user clicks on "AcePump" link on ShopByBrand page
   	And user selects the product "Ace Pumps Repair Kit Universal Ace Roller Pumps"

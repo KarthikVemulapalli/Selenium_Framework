@@ -7,22 +7,22 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
-import webcore.cucumber.*;
+import webcore.*;
 
 public class ReportSetup {
 	
+	private String AutomationReportPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Automation_Report";
+	private String ArchievedReportsPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Archieved_Reports";
+	
 	public void initialReportStep() {
-		String sourcefolderpath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Automation_Report";
-		
-		String archievedreportpath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Archieved_Reports"; 
-		File folderCreation = new File(archievedreportpath);
+		File folderCreation = new File(ArchievedReportsPath);
 		folderCreation.mkdir();
 		
-		String zipfilepath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Archieved_Reports" + File.separator + "Automation_Report_Zip_"+ CommonFunctions.getCurrentISTDate("dd-MMM-yyyy-HH-mm-ss") +".zip";
-		zipFolder(sourcefolderpath, zipfilepath);
+		String zipfilepath = ArchievedReportsPath + File.separator + "Automation_Report_Zip_"+ CommonFunctions.getCurrentISTDate("dd-MMM-yyyy-HH-mm-ss") +".zip";
+		zipFolder(AutomationReportPath, zipfilepath);
 		
 		deleteAutomationReportDirectory();
-	} 
+	}
 
 	private static void deleteAutomationReportDirectory() {
 		String directoryAutomationReport = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Automation_Report";	

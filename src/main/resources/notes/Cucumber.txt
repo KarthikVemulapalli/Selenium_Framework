@@ -1,0 +1,151 @@
+Installations
+	1.Install JDK in the system.
+	2.Add Java information in system environment variables.
+	3.Install Eclipse (or any IDE)
+	4.Configure Eclipse with Java (JDK)
+	5.Install 'Cucumber', 'natural' plugins using eclipse marketplace.
+	6.Create a Maven project (QuickStart archetype)
+	7.Add Cucumber dependencies cucumber-java, cucumber-testng/cucumber-junit in pom.xml file.
+	8.Add selenium dependency in pom.xml file.
+
+Framework
+	* Execution structure in which automated scripts are executed and maintained.
+	* This helps in Run, Maintain and Develop scripts in long term. Helps in code re-usability.
+	
+	What is Framework?
+		In any Real time project whenever Automation scripts are developed, One should come up with an Execution system called framework to run and maintain Automated tests
+	What is Cucumber?
+		Cucumber is the BDD Framework for running automated tests. 
+		Cucumber does not Automate your test cases!
+	When my tests are already automated and can run, what cucumber does? 
+		Data driven, Parameterization, Execution controls, Hooks, Reports, Automation utilities and many more….
+	When you say automated tests, what type of Automation test cases does cucumber Support?
+		Any Test (Web, Mobile, API, Unit Testing) which is written in Java/Ruby supported by Cucumber
+	How cucumber is unique and Best from other Test Frameworks (Keyword, Data Driven, Hybrid) in the Market?
+		Because Test cases/Requirements are defined with on BDD methodology (Gherkin syntax)
+
+BDD Framework (Selenium BDD Cucumber) Setup
+	1.Install Cucumber Plugin in Eclipse 	 		: After creating feature file a prompt message gets displayed, to install specific plugin to deal with feature file. Install 'Cucumber Eclipse Plugin'. If prompt message not displayed open Eclipse Marketplace and install the mentioned plugin.
+	2.Create new Maven project
+	3.Add cucumber-java, cucumber-testNG dependencies	: Open 'pom.xml' file, add maven dependencies in the file. Paste the required dependencies between <dependencies> tags.
+	4.Feature File Creation		 			: Create a 'features' folder under 'src/test/resources' package. Inside Features folder create a file with '.feature' extension (Feature file).
+	5.Add Content in Feature File				: Add 'Feature' statement. Under Feature statement add 'Scenario'/'Scenario Ouline' and provide steps using Given, When, Then, And, But
+	6.Create Step Definitions				: Create a 'step_definition' folder under 'src/test/java' package. Create java files and write the code.
+	7.Create Test Runner Class				: Add @CucumberOptions tag in the runner class (JUnit or TestNG)
+								  Add 'features', 'glue', 'tags', 'plugin' parameters inside @CucumberOptions
+								  Extend runner class with 'AbstractTestNGCucumberTests' for TestNG execution.
+	8.Generate Reports					: create reports HTML, JSON, JUNIT/XML by adding required plugins under @CucumberOptions.
+	9.Run Code						: Run runner class and verify results
+
+
+Cucumber 
+	* It is BDD (Behaviour Driven Development) framework for executing Automated scripts.
+	* It is not a testing tool, it is type of Framework under BDD.
+	* Supports any tests (i.e. Mobile, Web, API, Unit) which are written in Java/Ruby.
+	* Tests are defined in BDD methodology (using Gherkin Syntax)
+
+	Gherkin language (Business Readable/Domain Specific Language)
+		* Language to describe Software Behaviour/Test Case.
+		* Written in simple language, can be easily understable by Business folks.
+		* There should be single mapping implementation for each Gherkin line
+	Feature (.feature):
+		* Feature file acts as a Test Suite which consists of all Scenarios (Test Cases).
+		* Keywords used in feature file
+			Feature, Scenario, Scenario Outline, Examples, Given, When, Then, And, But
+	Step Definition	(.java file):
+		* Functionality Code is written.
+		
+
+Cucumber Options
+	1. Scenario (Test cases are represented as Scenarios in Cucumber)
+		* It contains steps with use of keywords (i.e. Given, When, Then, And, But all are case-sensitive)
+			Given 	- Mentions pre-conditions
+			When 	- Mentions user actions
+			Then 	- Describes expected output
+			And 	- Used for positive statements that are addition to previous steps
+			But 	- Used for negative statements that are addition to previous steps
+		* The sentence can contain data elements using {string}, {int}
+			Example: @When("user login into application using {string} and {string} credentials")
+		* Regex Pattern
+			Accept any parameter value {.+}, this sentence should start with '^' and end with '$'
+				Example: @When("^user login into application using {.+} and {.+} credentials$")
+
+	2. Scenario Outline
+		* Uses for parameterization.
+		* Execute same scenario with multiple sets of data.
+		* Test data sets are represented using 'Examples' keyword
+		* 'Examples' keyword, we can pass different sets of data to parameters specified in code.
+
+	3. Execute Feature & StepDefinitions files using JUnit/TestNG testrunner
+		* Execution using JUnit TestRunner - @RunWith(Cucumber.class)
+		* Execution using TestNG TestRunner - Extend runner class with 'AbstractTestNGCucumberTests' class from cucumber-testng jar.
+		* @CucumberOptions accepts parameters,
+			features	- provide the complete path where feature files are present
+			glue 		- provide the package name where step definition files are present. Make sure TestRunner and StepDefinitions package have same parent package (not mandatory).
+			plugins		- add necessary plugins like html report, extent report etc..
+			dryRun		- If true, validate whether all 'steps' in feature files have their respective code in stepDefinition or not. Does not execute test cases.
+			tags		- Execute the specific tests cases which have the tag mentioned.			
+
+			TidyGherkin Plugin to generate StepDefinitions
+				* To generate feature file steps into StepDefinition java code, we can use TidyGherkin. Install this plugin in chrome browser. By using 'chrome://apps' we can access it and paste the Gherkin steps and select JavaSteps option. This will give you all the java methods for that feature file.
+			* Note: Few CucumberOptions parameters are not same in both JUnit & TestNG. Example: stepNotifications is not present in TestNG
+
+	4. DataTable: In feature file send multiple data in list format, without specifying all the parameters in a single Gherkin line
+		* Multiple ways to get the data,
+			1. Method should accept 'DataTable' as argument
+				* Pass 'DataTable dataTableVariable' in method parameter, inside code 'List<List<String>> TableData = dataTableVariable.asLists();'. This dataTableVariable contains data passed in feature file.
+			2. Method should accept  List<Object> as arument, inside code use listvariable to get data with help if index value.
+
+	5. Tags: Scenarios into groups and execute them based on requirements
+		* Execute scenarios having multiple tags using 'and', 'or'
+		* Skip scenarios using 'not'
+
+	6. Background: Prerequisite code to be executed before every scenario in that particular feature file.
+		* Feature file can have only one Background block.
+		* This Background can be implemented only when all the mentioned scenarios in that feature file have common prerequisite.
+
+	7. Hooks: Before, After, BeforeStep, AfterStep
+		* Hooks are blocks of code that can run at various points in the Cucumber execution cycle.
+		* Annotations are used in StepDefinition file using tags like '@Before("@TagName")'. Before annotation executes before every scenario with specific tag.
+		* Example: In case a scenario has two tags. Example @Reg & @Smoke
+			1. If @Reg & @Smoke tag is called in testRunner.
+			2. Both @Before("@Smoke") and @Before("@Reg") gets executed.
+			3. The execution order will be in the order tags are mentioned.
+			4. In this example the @Reg is written first, so @Before("@Reg") executes first and then @Before("@Smoke") executes
+			5. Similarly @After("@Reg") executes first and then @After("@Smoke") executes
+	8. Execution through MVN
+		* Run the below in cmd, we can execute without using eclipse
+			mvn test
+	9. Reports: 
+		1. Add external plugin for reporting 'damianszczepanik/mvn-cucumber-reporting'.
+			This mvn-cucumber-reporting plugin takes json report files as input and provide html reports as output. 
+		2. Add 'plugin' parameter in @CucumberOptions. To get json report files.
+			plugin = {"pretty", "html:target/cucumber-json-reports"}
+			plugin = {"pretty", "json:target/cucumber-json-reports"}
+		3. Add input & output directory in pom.xml file
+		4. Output html files are saved in 'target/cucumber-html-reports' folder
+		5. The html reports will get only generated in 'mvn verify' phase.
+	
+	** When both Hooks and Background are used, hooks will be executed first.  Hooks has more priority than Background.
+	** When multiple hooks, the tag which is first mentioned in a scenario. That Hook will be executed first.
+	** If no tags mentioned in Before/After hook. They will be applied to all scenarios.
+
+
+Dependency Injection
+	* This can be achieved by using Spring Framework, EJB, PicoContainer dependency
+
+
+Parallel Execution
+	* We create a method 'public Object[][] scenarios(){}' in TestRunner
+	* And the return type will be 'return super.scenarios()', the scenarios() method is from AbstractTestNGCucumberTests class.
+	* Add dataProvider '@DataProvider(parallel=true)' for the method.
+
+
+Re-Run Failed Scenarios
+	* Using the plugin 'rerun', this plugin helps to create a text file which have failed steps updated.
+	* We need to create a new testrunner and point the failed steps text file to it, this will help to rerun only failed test scenarios.
+
+
+Rahul Shetty Sample Projects
+	Selenium Cucumber	- https://github.com/selenium-cucumber/selenium-cucumber-java-maven-example
+	Appium Cucumber		- https://github.com/mubbashir/appium-java-cucumber-gradle

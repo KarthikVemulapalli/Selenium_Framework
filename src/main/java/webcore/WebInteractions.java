@@ -1,4 +1,4 @@
-package webcore.cucumber;
+package webcore;
 
 import java.time.Duration;
 import org.openqa.selenium.By;
@@ -20,8 +20,8 @@ public class WebInteractions extends ExtentReportLogger {
 		PageFactory.initElements(driver, this);
 	}
 	
-	protected WebDriver getDriver() {
-		return driver;
+	public void launchURL(String URL) {
+		driver.navigate().to(URL);
 	}
 
 	protected void click(WebElement element) {
@@ -69,14 +69,6 @@ public class WebInteractions extends ExtentReportLogger {
 		return title;
 	}
 	
-	/* 
-	 * Below Method Deprecated
-	 * 
-	protected void addImplicitWait(int waitTime) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
-	 */
-	
 	protected void addImplicitWait(int waitTime) {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
 	}
@@ -92,6 +84,10 @@ public class WebInteractions extends ExtentReportLogger {
 		} catch (InterruptedException exception) {
 			Assert.fail(exception.getMessage());
 		}
+	}
+	
+	protected WebDriver getDriver() {
+		return driver;
 	}
 	
 }

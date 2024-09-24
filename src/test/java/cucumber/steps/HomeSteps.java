@@ -10,7 +10,7 @@ public class HomeSteps {
 	
 	@Given("user launches application url")
 	public void userLaunchesApplicationURL () throws IOException {
-		Hooks.launchURL(Hooks.getConfigProperty("url"));
+		homePage.launchURL(Hooks.getConfigProperty("url"));
 	}
 	
 	@When("user clicks on {string} link on home page")
